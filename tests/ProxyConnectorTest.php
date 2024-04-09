@@ -542,6 +542,9 @@ class ProxyConnectorTest extends AbstractTestCase
         $proxy = new ProxyConnector('proxy.example.com', $this->connector);
 
         $promise = $proxy->connect('google.com:80');
+
+        $promise->then(null, $this->expectCallableOnce()); // avoid reporting unhandled rejection
+
         unset($promise);
 
         $this->assertEquals(0, gc_collect_cycles());
