@@ -48,6 +48,12 @@ class ProxyConnectorTest extends AbstractTestCase
         new ProxyConnector('https+unix:///tmp/proxy.sock', $this->connector);
     }
 
+    public function testContructorThrowsExceptionForInvalidConnector()
+    {
+        $this->setExpectedException('InvalidArgumentException', 'Argument #2 ($connector) expected null|React\Socket\ConnectorInterface');
+        new ProxyConnector('proxy.example.com', 'connector');
+    }
+
     public function testCreatesConnectionToHttpPort()
     {
         $promise = new Promise(function () { });
