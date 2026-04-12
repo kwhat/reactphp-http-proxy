@@ -24,7 +24,9 @@ class ProxyConnectorTest extends AbstractTestCase
         $proxy = new ProxyConnector('proxy.example.com');
 
         $ref = new \ReflectionProperty($proxy, 'connector');
-        $ref->setAccessible(true);
+        if (PHP_VERSION_ID < 80100) {
+            $ref->setAccessible(true);
+        }
         $connector = $ref->getValue($proxy);
 
         $this->assertInstanceOf('React\Socket\ConnectorInterface', $connector);
