@@ -71,7 +71,7 @@ class ProxyConnector implements ConnectorInterface
             // connector uses Unix transport scheme and explicit path given
             $connector = new FixedUriConnector(
                 'unix://' . $match[2],
-                $connector ?: new UnixConnector()
+                $connector ?: new UnixConnector() // @codeCoverageIgnore
             );
         }
 
@@ -262,7 +262,7 @@ class ProxyConnector implements ConnectorInterface
             // what a lovely piece of code!
             $r = new \ReflectionProperty('Exception', 'trace');
             if (PHP_VERSION_ID < 80100) {
-                $r->setAccessible(true);
+                $r->setAccessible(true); // @codeCoverageIgnore
             }
             $trace = $r->getValue($e);
 
